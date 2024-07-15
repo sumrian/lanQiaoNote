@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        /* 注意这里定义的 CSS 变量，它们会用于生成渐变色背景 */
+        :root {
+        --color1: #00dbde;
+        --color2: #fc00ff;
+        }
+
+        body {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: #222;
+        }
+
+        .controls {
+        width: 500px;
+        height: 100px;
+        display: flex;
+        justify-content: space-between;
+        }
+
+        input[type="color"] {
+        -webkit-appearance: none;
+        border: none;
+        width: 60px;
+        height: 60px;
+        border-radius: 5px;
+        }
+
+        input[type="color"]::-webkit-color-swatch-wrapper {
+        padding: 0;
+        margin: 0;
+        }
+
+        input[type="color"]::-webkit-color-swatch {
+        border: none;
+        border-radius: 5px;
+        transform: scale(1.1);
+        }
+
+        .gradient {
+        width: 500px;
+        height: 500px;
+        border-radius: 5px;
+        background: linear-gradient(45deg, var(--color1), var(--color2));
+        }
+
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <input id="color1" type="color" name="color1" value="#00dbde" />
+        <input id="color2" type="color" name="color2" value="#fc00ff" />
+      </div>
+      <div class="gradient"></div>
+      <script>
+        const inputs = document.querySelectorAll(".controls input");
+        const gradient = document.querySelector('.gradient')
+        /**
+         * 上面已经选取了两个取色器
+         * 请添加相应的 JS 事件处理函数并绑定到合适的事件监听器上（提示：change 事件）
+         * 这样我们就可以用取色器选取颜色来生成下方的渐变色背景啦
+         *  */
+        inputs.forEach((item,index) => {
+            item.addEventListener('change',() => {
+            gradient.style.setProperty(`--color${index + 1}`,inputs[index].value)
+            
+
+            })
+        })
+
+      </script>
+</body>
+</html>
+// 获取元素
+<!-- const element = document.getElementById('myElement');
+
+// 使用 setProperty 设置样式
+element.style.setProperty('color', 'red');
+element.style.setProperty('font-size', '20px'); -->
+<!-- 在上面的示例中，我们首先使用 getElementById 方法获取一个具有 id 
+为 'myElement' 的元素。然后，我们使用 setProperty 方法设置元素的样式。
+第一个参数是要设置的样式属性的名称，第二个参数是要设置的样式值。
+
+通过使用 setProperty 方法，你可以动态地改变元素的样式，例如更改颜色
+、字体大小、背景等。
+
+需要注意的是，setProperty 方法设置的样式是内联样式，会直接应用于元素本身。
+如果你希望在样式表中设置样式，可以使用其他方法，例如修改元素的 className 
+属性或直接操作样式表对象。 -->

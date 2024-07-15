@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>花与大海</title>
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="./js/vue3.global.js"></script>
+</head>
+
+<body>
+  <!-- App根组件开始 -->
+  <div id="app">
+    <div class="box">
+      <!-- TODO开始: 修改代码，实现点击按钮切换组件 -->
+      <Component :is="currentComponent"></Component>
+      <div class="btns">
+        <button type="button" id="btn1" class="btn" @click="showFlower">花</button>
+        <button type="button" id="btn2" class="btn" @click="showOcean">大海</button>
+      </div>
+      <!-- TODO结束 -->
+    </div>
+  </div>
+  <!-- App根组件结束 -->
+
+  <!-- Flower组件开始 -->
+  <template id="Flower">
+    <div class="Flower">
+      <img src="./images/flower.jpg">
+    </div>
+  </template>
+  <!-- Flower组件结束 -->
+
+  <!-- Ocean组件开始 -->
+  <template id="Ocean">
+    <div class="Ocean">
+      <img src="./images/ocean.jpg">
+    </div>
+    </div>
+  </template>
+  <!-- Ocean组件结束 -->
+</body>
+
+<script type="module">
+    const { createApp, ref, reactive, toRefs } = Vue
+    const app = Vue.createApp({
+      setup() {
+        // TODO开始: 添加代码，实现动态组件切换效果
+        const currentComponent = ref('Flower');
+
+        const showFlower = () => {
+          currentComponent.value = 'Flower';
+        };
+
+        const showOcean = () => {
+          currentComponent.value = 'Ocean';
+        };
+
+        return {
+          currentComponent,
+          showFlower,
+          showOcean
+        };
+        // TODO结束
+      },
+    });
+    // Flower组件
+    app.component("Flower", {
+      template: "#Flower",
+    })
+  
+    // Ocean组件
+    app.component("Ocean", {
+      template: "#Ocean",
+    })
+    app.mount('#app');
+  
+  </script>
+
+</html>

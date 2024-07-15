@@ -1,0 +1,211 @@
+<!-- 141行 -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  height: 100vh;
+  padding: 1rem;
+}
+
+#prompt {
+  height: 20px;
+  width: 410px;
+  color: gainsboro;
+}
+
+.container textarea {
+  outline: none;
+  resize: none;
+  font-size: large;
+  padding: .5rem;
+  border-left: none;
+  border-right: none;
+  border-color: rgb(209, 208, 208);
+  border-width: 1.5px;
+  max-width: 500px;
+  background-color: rgb(247, 247, 247);
+}
+
+#post {
+  background-color: rgb(27, 184, 77);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 10rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+  width: 410px;
+}
+
+#post:active {
+  background-color: rgb(23, 162, 68);
+  color: rgb(21, 142, 61);
+}
+
+#post:disabled {
+  background-color: rgb(203, 203, 203);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.contents {
+  border-top: 1.5px solid rgb(240, 240, 240);
+  margin-top: 2rem;
+}
+
+.contents>div {
+  width: 410px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1.5px solid rgb(240, 240, 240);
+  padding: 1rem .25rem;
+}
+
+.contents>div>div {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  gap: .5rem;
+}
+
+.date {
+  color: rgb(180, 180, 180);
+  font-size: 80%;
+}
+
+.contents>div button {
+  width: 5rem;
+  color: white;
+  background-color: rgba(252, 74, 56);
+  border-radius: 5px;
+  border: none;
+  padding: .3rem;
+  cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+      <div id="prompt"></div>
+      <textarea id="text" cols="40" rows="12" placeholder="这一刻的想法..."></textarea>
+      <div class="buttons">
+        <button id="post">发表</button>
+      </div>
+      <div class="contents"></div>
+    </div>
+    <script >
+        document.addEventListener("DOMContentLoaded", function() {
+  // TODO: 请在此补充页面加载时缓存检查的代码
+  if (JSON.parse(localStorage.getItem('savedText'))) {
+    document.querySelector('#text').value = JSON.parse(localStorage.getItem('savedText'))
+    document.querySelector('#post').removeAttribute('disabled');
+  } else {
+    document.querySelector('#post').setAttribute('disabled','disabled')
+    // document.getElementById("text").value = ''
+
+    // console.log(localStorage.getItem('savedText'));
+  }
+});
+
+// 当文本框输入内容改变时，动态地设置localStorage缓存，并根据有没有文本改变按钮状态
+// 此处使用了防抖函数，避免太过频繁地更新缓存
+document.getElementById("text").addEventListener(
+  "input",
+  debounce(function() {
+
+     // 提示正在保存中
+     document.getElementById("prompt").textContent = "正在保存中...";
+    //  console.log(this.value);
+    // TODO: 请在此补充用户输入时设置缓存和调整按钮状态的代码
+    //最离谱的一处，用正常方法通过不了，用明显有错的方法通过测试
+    // localStorage.setItem('savedText', this.value)
+    localStorage.setItem('savedText', JSON.stringify(this.value))
+    if (this.value.trim() === '') {
+      document.querySelector('#post').setAttribute('disabled', 'disabled');
+    } else {
+      document.querySelector('#post').removeAttribute('disabled');
+    }
+
+    // TODO-END
+
+   
+    // 过一段时间后提示保存完成，模拟上传数据至后台的效果
+    setTimeout(function() {
+      document.getElementById("prompt").textContent = "内容已保存";
+    }, 750);
+  }, 200)
+);
+
+document.getElementById("post").addEventListener("click", function() {
+  const content = document.getElementById("text").value;
+  const element = createContent(content);
+  document.querySelector(".contents").appendChild(element);
+  document.getElementById("prompt").textContent = "";
+
+  // TODO: 请在此补充用户点击“发表”按钮时清空文本框和缓存的代码
+  localStorage.removeItem('savedText')
+  document.getElementById("text").value = ''
+
+
+  document.querySelector('#post').setAttribute('disabled','disabled')
+
+
+});
+
+// 防抖工具函数
+/**
+ * @param  {function} fn  - 回调函数
+ * @param  {string} delay - 函数执行延迟，单位为ms
+ */
+function debounce(fn, delay) {
+  //return fn; // 这一行是为了确保页面正常运行，可以去掉
+
+  // TODO: 请实现函数防抖的功能
+  let timer
+  return function (...args) {
+    clearInterval(timer)
+    timer = setTimeout(() => {
+      fn.apply(this, args)
+    }, delay)
+  }
+}
+
+// 用户点击“发表”后，创建一条新信息的DOM元素
+function createContent(content) {
+  const div = document.createElement("div");
+  const d = new Date();
+  const deleteBtn = document.createElement("button");
+  deleteBtn.textContent = "删除";
+  deleteBtn.addEventListener("click", function() {
+    div.remove();
+  });
+  div.innerHTML = `<div><span class="content">${content}</span><span class="date">${d.toLocaleString()}</span></div>`;
+  div.appendChild(deleteBtn);
+  return div;
+}
+    </script>
+  
+  </body>
+</html>

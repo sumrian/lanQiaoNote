@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div div {
+        width: 4rem;
+        height: 4rem;
+        margin: 0.3rem;
+        display: inline-block;
+        border-radius: 15px;
+        box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+        
+        }
+
+        [red=""] {
+        background-color: red;
+        }
+
+        [yellow=""] {
+        background-color: yellow;
+        }
+
+        [blue=""] {
+        background-color: blue;
+        }
+
+/* TODO: 实现原子化 flex */
+[flex="~ col"] {
+  display: flex;
+  flex-direction:column
+}
+    </style>
+</head>
+<body>
+    <div flex="~ col">
+      <div red></div>
+      <div yellow></div>
+      <div blue></div>
+    </div>
+  </body>
+</html>

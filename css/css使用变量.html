@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 当一个属性被多次使用可以使用变量来接收,类似于less */
+        /* --定义变量 var()使用函数 */
+        /* 使用:root选择器可以选中根节点，结合CSS变量可以将变量定义在全局，
+        它有最高优先级，所有元素都可以访问这些变量。正如上面的示例 */
+        :root {
+            --w:400px;
+            --h:400px;
+            --bgc:pink;
+        }
+        .box1,
+        .box2 {
+            width: var(--w);
+            height: var(--h);
+            background-color: var(--bgc);
+        }
+        /* 局部变量（又叫块级变量）的使用范围就比较广了，
+        几乎所有选择器都可以声明变量。下面举几个例子 */
+        /* 局部变量与全局变量命名重复时候类似js采用就近原则 */
+        .box3 {
+            --w:200px;
+            --h:200px;
+            --bgc:#f00;
+        }
+        .box2 .box3 .box4 {
+            width: var(--w);
+            height: var(--h);
+            background-color: var(--bgc);
+        }   
+    </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <div class="box2">
+        <div class="box3">
+            <div class="box4">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

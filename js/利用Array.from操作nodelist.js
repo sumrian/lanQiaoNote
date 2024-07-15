@@ -1,0 +1,1 @@
+Array.from(document.querySelectorAll('section')).forEach(e => e.style.display = 'none');

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+    <div id="draggable" draggable="true">Drag me!</div>
+    <div id="dropzone">Drop here!</div>
+
+</body>
+<script>
+    const draggable = document.getElementById('draggable');
+const dropzone = document.getElementById('dropzone');
+
+// 拖拽开始时
+draggable.addEventListener('dragstart', (event) => {
+  event.dataTransfer.setData('text/plain', 'Dragged element');
+});
+
+// 阻止默认行为，允许放置
+dropzone.addEventListener('dragover', (event) => {
+  event.preventDefault();
+});
+
+// 拖拽元素放置时
+    dropzone.addEventListener('drop', (event) => {
+    event.preventDefault();
+    const data = event.dataTransfer.getData('text/plain');
+    
+    // 触发回调函数（这里只是简单示例，您可以根据需要自定义回调函数）
+    if (data === 'Dragged element') {
+        console.log('Element dropped at specified location!');
+        // 在这里触发您的回调函数
+    }
+    });
+
+</script>
+</html>

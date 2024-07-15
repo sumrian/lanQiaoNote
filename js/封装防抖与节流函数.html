@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button class="btn">防抖</button>
+  <button class="btn1">节流</button>
+  <script>
+    // 防抖
+    function debounce(fn, delay) {
+      let timer
+      return function (...args) {
+        clearInterval(timer)
+        timer = setTimeout(() => {
+          console.log(this,args);
+          fn.apply(this, args)
+        }, delay)
+      }
+    
+    }
+
+    // 节流
+    function throttle(func, delay) {
+      let timeoutId;
+      let lastExecTime = 0;
+
+      return function(...args) {
+        const currentTime = Date.now();
+
+        if (currentTime - lastExecTime > delay) {
+          clearTimeout(timeoutId);
+          lastExecTime = currentTime;
+          func.apply(this, args);
+        } else {
+          clearTimeout(timeoutId);
+          timeoutId = setTimeout(() => {
+            lastExecTime = currentTime;
+            func.apply(this, args);
+          }, delay);
+        }
+      };
+    }
+
+
+    function handleScroll() {
+      console.log('节流');
+    }
+
+    const throttledScroll = throttle(handleScroll, 1000);
+
+    document.querySelector('.btn1').addEventListener('click', throttledScroll);
+
+    document.querySelector('.btn').addEventListener('click',debounce(() => {
+      console.log('防抖');
+    },1000))
+    
+  </script>
+</body>
+</html>

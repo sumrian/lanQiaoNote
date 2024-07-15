@@ -1,0 +1,28 @@
+单行 {
+    /* 行内块保证换行并且行内不换行 */
+    display: inline-block;
+    /* 百分白来制造溢出 */
+    width: 100%;
+    /* 不换行 */
+    white-space: nowrap;
+    /* 溢出隐藏 */
+    overflow: hidden;
+    /* 溢出隐藏显示省略号 */
+    text-overflow: ellipsis;
+    animation: name duration timing-function delay iteration-count direction fill-mode;
+    animation-iteration-count:infinite
+    /* 动画名 持续时间 动画的速度曲线 延迟多久开始 播放次数 是否反向播放 动画执行完毕后的状态保持 */
+}
+多行 {
+    /* 过时的display */
+    display: -webkit-box;
+    /* 限制三行 */
+    -webkit-line-clamp: 3;
+    /* 文字竖直方向排列 */
+    -webkit-box-orient: vertical;
+    /* 溢出隐藏 */
+    overflow: hidden;
+    /* 溢出隐藏显示省略号 */
+    text-overflow: ellipsis;
+    
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 如何判断对象是不是null -->
+    <script>
+        // Object.prototype.toString.call使用
+        // Object对象和它的原型链上各自有一个toString()方法
+        // ，第一个返回的是一个函数，第二个返回的是值类型。
+        const obj = {
+            a:null,
+            b:() => {
+                return 1
+            },
+            c:[],
+            d:{
+
+            }
+        }
+        let str = '[object Null]'
+        str = str.replace('[object ','').replace(']','').toLowerCase()
+
+        console.log(str);
+
+        function getType(data) {
+        // TODO：待补充代码
+
+        // 在 if 判断中仅判断基本类型
+        if (typeof data !== 'object') {
+            return typeof data
+        }
+        // 此方法不能识别数字对象类型和数字类型，所以要在之前加 if 判断
+        return Object.prototype.toString.call(data).slice(8,-1).toLowerCase()
+
+        }
+        console.log(getType(/1234/));
+        // console.log(Object.prototype.toString.call(obj.a));//[object Null]
+        // console.log(obj.__proto__.toString);//ƒ toString() { [native code] }
+        // console.log(Object.toString.call(Array));//function Array() { [native code] }
+        // console.log(obj.a === null);
+
+    </script>
+</body>
+</html>
