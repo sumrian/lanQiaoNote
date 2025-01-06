@@ -35,6 +35,8 @@
         }
         // 此方法不能识别数字对象类型和数字类型，所以要在之前加 if 判断
         return Object.prototype.toString.call(data).slice(8,-1).toLowerCase()
+        //只要没有重写tostring方法的对象都能沿着原型链往上面找到Object.prototype上面的tostring
+        return ({}).toString.call(data).slice(8,-1).toLowerCase()
 
         }
         console.log(getType(/1234/));

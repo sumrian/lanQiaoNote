@@ -22,3 +22,8 @@ console.log(parseInt("3.14"));     // 输出: 3 (只取整数部分)
 console.log(parseInt("3.14", 10)); // 输出: 3
 console.log(parseInt("3.14", 2));  // 输出: 3 (二进制 11 转十进制)
 parseInt() //函数非常有用,可以帮助你将字符串转换为整数。它在处理用户输入、解析数据等场景中都有广泛的应用。需要注意的是,如果字符串无法被转换为数字,它会返回 NaN(Not a Number)。
+// parseInt第二个参数范围到36，其实是0~9的十进制，加上26个字母，即三十六进制
+console.log(parseInt(1/0, 19))  // 18
+console.log(parseInt(false, 16)) // 250
+console.log(parseInt(parseInt, 16)) // 15
+console.log(parseInt({}, 16)) // NaN
