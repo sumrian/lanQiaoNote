@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Table</title>
+    <style>
+       #container {
+            height: 400px;
+            width: 300px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+        }
+        .item {
+            height: 50px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }   #scroll-container {
+            height: 400px;
+            width: 300px;
+            overflow-y: auto;
+            position: relative;
+            border: 1px solid #ccc;
+        }
+        .item-wrapper {
+            position: absolute;
+            width: 100%;
+        }
+        .item {
+            height: 50px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <input type="password" value="1">
+
+    <div id="message"></div>
+  <div id="scroll-container">
+    <!-- Items will be dynamically added and removed here -->
+</div>
+    <script src="lodash.js"></script>
+    <script type="module" >
+       console.time('loop')
+       
+       let t = 1
+       for (let i = 0; i < 501 ; i++) {
+        t++
+        if ( i= 500) {
+            console.timeLog('loop')
+        }
+       }
+       console.timeEnd('loop')
+       console.log('t',t);
+       
+    </script>
+</body>
+</html>
